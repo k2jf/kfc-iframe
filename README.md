@@ -1,4 +1,4 @@
-# kfc-iframe
+# kfc-kmx-iframe
 
 An iframe component specially designed for kmx pages
 
@@ -8,8 +8,8 @@ zhangzhenbang
 
 ## install
 ```bash
-git remote add -f kfc-iframe git@github.com:k2jf/kfc-iframe.git
-git subtree add -P src/components/kfc-iframe kfc-iframe master --squash
+git remote add -f kfc-kmx-iframe git@github.com:k2jf/kfc-kmx-iframe.git
+git subtree add -P src/components/kfc-kmx-iframe kfc-kmx-iframe master --squash
 ```
 
 > important: this components RELY on centain constant in `src/config/index.js`, namely:
