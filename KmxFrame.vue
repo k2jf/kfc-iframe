@@ -24,7 +24,7 @@
 <script>
 
 import { Spin } from 'iview'
-import config from 'src/config'
+import config from '@/config'
 import api from './api'
 
 export default {
@@ -73,7 +73,7 @@ export default {
   mounted () {
     // note if you manully initialize data in mount(), you should be aware of the order!
     this.timeout = config.iframeTimeoutInMillis
-    this.token = api.getK2Key() || throw new Error('请在api/index.js中设置获取K2Key的getter')
+    this.token = api.getK2Key()
     if (!this.token) {
       console.error(`iframe试图访问${this.targetUrl}页面，但是token是空的！这是不合理的情况。请联系开发人员解决此问题。`)
     }
