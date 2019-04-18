@@ -11,7 +11,9 @@
       <div class="kmx-logo-wrapper">
         <i class="kmx-logo"></i>
       </div>
-      <h2>不能成功连接到KMX。<a @click="hurry">重试</a></h2>
+      <h2 v-if="targetUrl">
+        不能成功连接到KMX。<a @click="hurry">重试</a>
+      </h2>
     </div>
 
     <Spin
@@ -44,8 +46,8 @@ export default {
       src: '',
       oldSrc: '',
       token: '',
-      iframeReady: false,
-      kmxConnected: true,
+      iframeReady: true,
+      kmxConnected: false,
       timeout: '',
       casLogin: config.casLoginUrl
     }
@@ -70,18 +72,27 @@ export default {
       }
     }
   },
+  watch: {
+    targetUrl () {
+      this.ready()
+    }
+  },
   mounted () {
-    // note if you manully initialize data in mount(), you should be aware of the order!
     this.timeout = config.iframeTimeoutInMillis
     this.token = api.getK2Key()
     if (!this.token) {
       console.error(`iframe试图访问${this.targetUrl}页面，但是token是空的！这是不合理的情况。请联系开发人员解决此问题。`)
     }
-
-    this.src = this.casLogin + '?token=' + this.token + '&service=' + this.targetUrl
-    this.hurry()
+    this.ready()
   },
   methods: {
+    ready () {
+      if (!this.targetUrl) {
+        return
+      }
+      this.src = this.casLogin + '?token=' + this.token + '&service=' + this.targetUrl
+      this.hurry()
+    },
     hurry () {
       if (process.env.NODE_ENV === 'development') {
         console.log(`iframe正在加载${this.targetUrl}页面， CAS位于${this.casLogin}`)
@@ -111,6 +122,7 @@ export default {
   .container {
     position: relative;
     overflow: hidden;
+    height: 100%;
   }
 
   .frame {

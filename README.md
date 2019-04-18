@@ -31,12 +31,16 @@ only a **mock** value is coded there. You have to provide with your
 own implementation.
 
 #### then you can use it by simply put it inside `<template>`
-```js
+```html
 <template>
   <KmxFrame :targetUrl="targetUrl"></KmxFrame>
 </template>
 ```
 where `targetUrl` is the desired page you want to embed.
+
+> **note**: you may find that the iframe is too narrow as just a ribbon.  
+> That's because the outer element has 'auto' height.  
+> In this case, you have to specify `"position: relative"` and `"height: ...px"` yourself.
 
 ## other props
 - **cutOffBreadCrumb**: Number or Boolean
